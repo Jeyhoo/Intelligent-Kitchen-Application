@@ -4,14 +4,20 @@
         <header class="flex">
             <div class="header-left flex">
                 <h1>logo</h1>
-                <nav>导航栏</nav>
+                <nav>
+                    <ul class="clearfix">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">现有食材管理</a></li>
+                        <li><a href="#">智能菜单生成</a></li>
+                        <li><a href="#">美食菜谱</a></li>
+                    </ul>
+                </nav>
             </div>
             <div class="header-right flex">
                 <span>admin</span>
-                <a href="#">登录|退出</a>
+                <a class="loga" href="#">登录|退出</a>
             </div>
         </header>
-
         <!-- 主体 -->
         <main>222</main>
 
