@@ -1,34 +1,30 @@
 <template>
     <div class="index">
         <!-- 头部 -->
-        <header class="flex">
-            <div class="header-left flex">
-                <h1>logo</h1>
-                <nav>
-                    <ul class="clearfix">
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">现有食材管理</a></li>
-                        <li><a href="#">智能菜单生成</a></li>
-                        <li><a href="#">美食菜谱</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="header-right flex">
-                <span>admin</span>
-                <a class="loga" href="#">登录|退出</a>
-            </div>
-        </header>
+        <head-com></head-com>
         <!-- 主体 -->
-        <main>222</main>
+        <main>
+            <home-page></home-page>
+        </main>
 
         <!-- 底部 -->
-        <footer>333</footer>
+        <footer>.</footer>
+        <div class="bod">
+
+        </div>
     </div>
 </template>
 
 <script>
+    import headCom from "../components/HeadCom";
+    import homePage from "../pages/Home"
+
     export default {
-        name: "Index"
+        name: "Index",
+        components: {
+            headCom,
+            homePage
+        }
     }
 </script>
 
