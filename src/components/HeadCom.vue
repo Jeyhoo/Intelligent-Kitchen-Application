@@ -1,5 +1,5 @@
 <template>
-    <header class="flex">
+    <header class="header-all flex">
         <div class="header-left flex">
             <h1>小菜冀利智平台</h1>
             <nav>
@@ -35,9 +35,6 @@
 
 <style scoped>
 
-    /*
-通用样式
-*/
     .flex {
         display: flex;
         align-items: center;
@@ -60,10 +57,16 @@
 
     header {
         height: 80px;
-        background-color: #dbe3df;
+        /*background-color: #dbe3df;*/
+        background-color: rgba(177, 217, 197, 0.5); /* 设置背景色为半透明 */
+        backdrop-filter: blur(10px); /* 添加模糊虚化效果 */
         justify-content: space-between;  /*使其内部元素均匀的在水平分布，元素之间的间距均等*/
         box-sizing : border-box;         /*将改盒子模型变成width = 边框 + 内边距 + 内容， 原来width只是内容content的宽度*/
         padding: 0 30px;                 /*修改盒子的内边距上下为0，左右为30px.  声明一下为什么直接改外边距margin,是因为背景颜色不包括外边界*/
+        /*设置整个头部布局是黏贴定位*/
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
     }
 
     header h1 {

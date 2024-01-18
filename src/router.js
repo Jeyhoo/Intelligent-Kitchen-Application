@@ -39,6 +39,12 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
-    }
+    },
+    // 测试
+    {
+      path: '/testHome',
+      name:"home",
+      component:resolve =>{require(['./test/_Home.vue'],resolve)}
+    },
   ]
 })

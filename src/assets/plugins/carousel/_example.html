@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel使用示例</title>
+    <link rel="stylesheet" href="./carousel.css" />
+</head>
+<body>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            list-style: none;
+        }
+        main{
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+
+    <main>
+        <div class="carousel">
+            <ul class="carousel-container">
+                <li><img src="./_temp1.jpg" /></li>
+                <li><img src="./_temp2.png" /></li>
+                <li><img src="./_temp3.jpg" /></li>
+            </ul>
+        </div>
+    </main>
+
+    <script type="module">
+        import {Carousel} from "./index.js"
+        let carousel = new Carousel();
+        carousel.init();
+    </script>
+</body>
+</html>

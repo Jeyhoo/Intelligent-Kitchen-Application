@@ -11,18 +11,24 @@
                 <li class="pointer cc">。</li>
                 <li class="pointer gg">。</li>
             </ul>
-        </div>
-        <div class="mytest">
-            {{lunboIndex}} ---- {{lunboLength}} --- {{pointer}}
-            <button @click="lunboFun()">哈哈</button>
+            <div class="some-discript">
+                <div class="top-discript">
+                    <p class="top-p">我是第一张图片的前半句 </p>
+                    <p class="top-p">我是第二张图片的前半句  </p>
+                    <p class="top-p"> 我是第三张图片的前半句 </p>
+                </div>
+                <div class="bottom-discript">
+                    <p class="bottom-p">我是第一张图片的前后句 </p>
+                    <p class="bottom-p">我是第二张图片的前后句 </p>
+                    <p class="bottom-p">我是第三张图片的前后句 </p>
+                </div>
+            </div>
         </div>
     </div>
 
 </template>
 
 <script>
-    import {Carousel} from "../assets/js/util.js"
-
     export default {
         name: "Home",
         data(){
@@ -30,20 +36,24 @@
                 lunboIndex: null,
                 lunboLength: null,
                 timer: null,
-                pointer: null
+                pointer: null,
+                topP:null,
+                bottomP:null
             }
         },
         methods:{
             //初始化数据
             async initData() {
+                // this.lunboIndex = 0;
                 this.lunboLength = document.getElementsByClassName("liimg").length;
                 this.pointer = document.getElementsByClassName("pointer");
+                this.topP = document.getElementsByClassName("top-p");
+                this.bottomP = document.getElementsByClassName("bottom-p");
             },
 
             initLunbo(){
                 this.timer = setInterval(this.lunboFun,2000,true);
-                //判断类型是null，则初始化数据，并执行轮播
-                if(typeof this.lunboIndex == 'object'){
+                if(this.lunboIndex === null){
                     this.lunboIndex = 0;
                     this.lunboFun();
                 }
@@ -51,18 +61,30 @@
 
             //切换图片函数
             lunboFun(){
-                console.log("[Home]lunboFun",this.lunboIndex)
+                console.log("[Home]lunboFun",this.lunboIndex,this.lunboLength)
                 //索引==最大长度，就把索引设置为最小，即从头开始
                 if(this.lunboIndex === this.lunboLength){
                     this.lunboIndex = 0;
                 }
-                //重新全部状态
+                console.log("[Home]lunboFun2",this.lunboIndex,this.lunboLength)
+                //切换图片显示
+                //重置全部状态
                 Array.from(document.getElementsByClassName("liimg")).map(dom=>{dom.style.display = "none";})
-                Array.from(this.pointer).map(dom=>{dom.style.color = "black";})
+                Array.from(this.pointer).map(dom=>{dom.style.color = "#a5b0bb";})
+                document.getElementsByClassName("some-discript")[0].classList.remove("active");
+                Array.from(this.topP).map(dom=>{dom.style.display = "none";})
+                Array.from(this.bottomP).map(dom=>{dom.style.display = "none";})
+
                 //显示当前索引的
                 document.getElementsByClassName("liimg")[this.lunboIndex].style.display = "block";
-                this.pointer[this.lunboIndex].style.color = "#f5d4d4";
-                console.log(this.lunboIndex)
+                this.pointer[this.lunboIndex].style.color = "#2f3031";
+                //将some-discript类的样式增加.active的高亮属性, 延时100ms为了避免浏览器优化而发生的：瞬间修改两次同一个元素的样式导致第一次修改失效
+                setTimeout(()=>{
+                    document.getElementsByClassName("some-discript")[0].classList.add("active");
+                },100)
+                this.topP[this.lunboIndex].style.display = "block";
+                this.bottomP[this.lunboIndex].style.display = "block";
+
 
                 this.lunboIndex++;
             },
@@ -125,17 +147,18 @@
     .div-all {
         width: 100%;
         height: 711px;
-        /*background-color: #868484;*/
-        background: url("../assets/images/bg/bg3.jpg") no-repeat;
+        background-color: #868484;
+        /*background: url("../assets/images/bg/bg3.jpg") no-repeat;*/
         background-size: 100% 700px;
+        overflow: hidden;
     }
 
     .lunbo {
-        width: 45%;
-        height: 60%;
+        width: 100%;
+        height: 100%;
         background-color: #6e7d64;
-        /*position: absolute;*/
-        transform: translate(10%,55%);
+        position: relative;
+        /*transform: translate(10%,55%);*/
     }
 
     .lunbo .lunbo-img{
@@ -156,28 +179,60 @@
 
 
     .lunbo-index {
-        width: 20%;
+        width: 10%;
         height: 8%;
         position: absolute;
-        right: 10%;
+        left: 50%;
+        transform: translate(-50%,0px);
         bottom: 5%;
         display: flex;         /*使其内部元素呈现在一行里*/
         align-items: center;   /*使其内部元素垂直居中*/
-        font-size: 30px;
-        color: #525c66;
-    }
+        justify-content: space-between;  /*使其内部元素均匀的在水平分布，元素之间的间距均等*/
+        font-size: 40px;
+        color: #a5b0bb;
 
-    /*.lunbo-index li {*/
-    /*    cursor: pointer;  !*鼠标停留变小手*!*/
-    /*}*/
+    }
 
     .lunbo-index li:hover {
         cursor: pointer;  /*鼠标停留变小手*/
         color: #f5d4d4;
     }
 
-    .mytest {
-        transform: translate(0,-300px);
+    .some-discript {
+        width: 35%;
+        height: 30%;
+        /*background-color: #5ec7ea;*/
+        position: absolute;
+        right: -35%;
+        top: 20%;
     }
+
+    .active {
+        transition: 1s;
+        right: 10%;
+    }
+
+    .some-discript p {
+        width: 80%;
+        margin-top: 20px;
+        font-size: 35px;
+        font-style:italic;   /*字体倾斜*/
+        color: #070e44;
+        white-space: nowrap; /* 防止文本换行 */
+        text-shadow: 5px 5px 5px #8b7575; /*文字加阴影*/
+        display: none;
+
+    }
+
+    .bottom-discript {
+        transform: translate(20%,0);
+    }
+
+    /*@keyframes myfirst*/
+    /*{*/
+    /*    from {color: #070e44;}*/
+    /*    to {color: yellow;}*/
+    /*}*/
+
 
 </style>
